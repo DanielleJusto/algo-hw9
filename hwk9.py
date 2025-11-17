@@ -1,6 +1,7 @@
 # https://www.geeksforgeeks.org/python/python-convert-list-characters-string/
-
-import csv     
+# https://datavizpyr.com/how-to-make-us-state-and-county-level-maps-in-r/
+import csv  
+import pandas   
 
 def greedy1(map:dict) -> dict:
     """ Generates a color mapping given a map/graph in the form of a dictionary
@@ -9,6 +10,7 @@ def greedy1(map:dict) -> dict:
     colors_used = {1}  # Track the colors used
     current_color = 1  # Track the most recent color added
     color_mapping = {} # Dictionary of mapping to return
+    num_ops = 0        # Keep track of operations for analysis
 
     # Iterate through states
     for key in map.keys():
@@ -80,7 +82,15 @@ def main():
                 if choice == 0:
                     end_program = True
                 if choice == 1:
-                    print(greedy1(map))
+                    coloring1 = greedy1(map)
+                    try:
+                        with open("greedy1.csv", 'w') as file:
+                            writer = csv.writer(file)
+                            writer.writerow(coloring1.keys())
+                            writer.writerow(coloring1.values())
+                        print("Mapping saved to greedy1.csv.")
+                    except FileNotFoundError:
+                        print(f"Error writing to {file}")
                 if choice == 2:
                     print(greedy2(map))
                 elif not choice in [0,1,2]:
