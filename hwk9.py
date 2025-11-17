@@ -1,5 +1,10 @@
-# https://www.geeksforgeeks.org/python/python-convert-list-characters-string/
-# https://datavizpyr.com/how-to-make-us-state-and-county-level-maps-in-r/
+# Name:       - Danielle Justo
+# Peers:      - Isabelle Wang
+# References: - https://www.geeksforgeeks.org/python/python-convert-list-characters-string/
+#              https://www.geeksforgeeks.org/r-language/create-a-choropleth-map-by-using-plotly-package-in-r/
+#              https://statisticsglobe.com/state-name-abbreviation-r
+#              https://plotly.com/python/map-configuration/
+
 import csv  
 import pandas   
 

@@ -21,7 +21,7 @@ map <- plot_geo(
   greedy1,
   type = "choropleth",
   locations = ~abbrev,
-  z = ~as.numeric(Color),
+  z = ~Color,
   locationmode = "USA-states"
 ) |> layout(title = "Map Coloring: Greedy Algorithm 1", 
             geo = list(scope = "usa"))
