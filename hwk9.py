@@ -2,13 +2,17 @@
 
 import csv     
 
-def greedy1(map:dict):
-    colors_used = {1} # Track the colors used
-    current_color = 1 # Track the most recent color added
+def greedy1(map:dict) -> dict:
+    """ Generates a color mapping given a map/graph in the form of a dictionary
+    
+    """
+    colors_used = {1}  # Track the colors used
+    current_color = 1  # Track the most recent color added
     color_mapping = {} # Dictionary of mapping to return
 
     # Iterate through states
     for key in map.keys():
+        print(key)
         # Put neighbor colors into a set
         neighbor_colors = set()
         # Iterate through neighbors
@@ -17,10 +21,14 @@ def greedy1(map:dict):
             if n in color_mapping.keys():
                 neighbor_colors.add(color_mapping[n])
         # Take set difference of neighbor colors and colors used
+        print(f'colors_used : {colors_used}')
+        print(f'neighbor_colors : {neighbor_colors}')
         available_colors = colors_used - neighbor_colors
+        print(available_colors)
         # If colors_used == neighbor_colors, Add a new color
         if available_colors == set():
             current_color += 1
+            colors_used.add(current_color)
             color_mapping[key] = current_color
         # Else, use the first item in available colors
         else:
