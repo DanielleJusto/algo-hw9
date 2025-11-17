@@ -12,7 +12,6 @@ def greedy1(map:dict) -> dict:
 
     # Iterate through states
     for key in map.keys():
-        print(key)
         # Put neighbor colors into a set
         neighbor_colors = set()
         # Iterate through neighbors
@@ -21,10 +20,7 @@ def greedy1(map:dict) -> dict:
             if n in color_mapping.keys():
                 neighbor_colors.add(color_mapping[n])
         # Take set difference of neighbor colors and colors used
-        print(f'colors_used : {colors_used}')
-        print(f'neighbor_colors : {neighbor_colors}')
         available_colors = colors_used - neighbor_colors
-        print(available_colors)
         # If colors_used == neighbor_colors, Add a new color
         if available_colors == set():
             current_color += 1
@@ -34,6 +30,9 @@ def greedy1(map:dict) -> dict:
         else:
             color_mapping[key] = list(available_colors)[0]
     return color_mapping
+
+def greedy2(map:dict) -> dict:
+    return {}
 
 def as_list(neighbors: str) -> list :
     """ Parse neighbors string into a list of strings
@@ -58,17 +57,39 @@ def as_list(neighbors: str) -> list :
     return neighbors_arr
 
 def main():
-    # Turn csv into a dictionary
     map = dict()
-    with open('color-US-states.csv') as csv_file:    
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        header = csv_reader.__next__()
-        for row in csv_reader:
-            key = row[0]
-            map[key] = {
-                        'Neighbors' : as_list(row[1]),
-                        'Num_n' : int(row[2])
-                        }    
-    # Greedy 1
-    print(greedy1(map))
+    filename = 'color-US-states.csv'
+    try: 
+        print("Converting .csv into dictionary....")
+        # Turn csv into a dictionary
+        with open(filename) as csv_file:    
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            header = csv_reader.__next__()
+            for row in csv_reader:
+                key = row[0]
+                map[key] = {
+                            'Neighbors' : as_list(row[1]),
+                            'Num_n' : int(row[2])
+                            }    
+        print("csv successfully converted!")
+        print("Pick a greedy map coloring algorithm.\n(0) To quit the program\n(1) For greedy algorithm 1\n(2) For greedy algorithm 2")
+        end_program = False
+        while(end_program == False):
+            try:
+                choice = int(input())
+                if choice == 0:
+                    end_program = True
+                if choice == 1:
+                    print(greedy1(map))
+                if choice == 2:
+                    print(greedy2(map))
+                elif not choice in [0,1,2]:
+                    print("Pick a greedy map coloring algorithm.\n(0) To quit the program\n(1) For greedy algorithm 1\n(2) For greedy algorithm 2")
+            except ValueError:
+                print("Pick a greedy map coloring algorithm.\n(0) To quit the program\n(1) For greedy algorithm 1\n(2) For greedy algorithm 2")
+
+            
+    except FileNotFoundError:
+        print(f"Error opening {filename}")
+
 main()
